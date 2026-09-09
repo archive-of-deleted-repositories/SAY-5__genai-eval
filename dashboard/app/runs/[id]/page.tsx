@@ -6,8 +6,8 @@ import { TrendChart } from "@/components/TrendChart";
 
 export const dynamic = "force-dynamic";
 
-export default async function RunDetailPage({ params }: { params: { id: string } }) {
-  const id = Number(params.id);
+export default async function RunDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const id = Number((await params).id);
   if (!Number.isFinite(id)) notFound();
 
   let detail;

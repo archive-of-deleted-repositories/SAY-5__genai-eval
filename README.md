@@ -65,9 +65,15 @@ showing pass rates and regression trends per model version.
 | `src/genai_eval/localization/`       | Script check, honorific judge, calque judge            |
 | `eval/suites/`                       | Hand-written YAML examples per task × language          |
 | `eval/baselines/fake-large.json`     | Committed FakeProvider baseline                         |
-| `dashboard/`                         | Next.js 14 dashboard (App Router, Tailwind, recharts)   |
+| `dashboard/`                         | Next.js 15 dashboard (App Router, Tailwind, recharts)   |
 
 ## Quickstart
+
+The dashboard requires Node.js `^20.19.0 || ^22.13.0 || >=24.0.0`.
+Use `npm ci` to install its audited lockfile. Optional native packages have
+additional platform restrictions: Sharp's Windows 32-bit binary supports Node
+20 only, and Rollup's Linux x64 LZMA cross-compilation helper requires Node
+22.20+, 24.12+, or 25+. That helper is not loaded by normal Rollup builds.
 
 ```bash
 poetry install
@@ -76,7 +82,7 @@ poetry run genai-eval run --provider fake --model fake-large \
   --output eval/baselines/fake-large.json
 poetry run uvicorn genai_eval.api:app --reload
 # in another shell
-cd dashboard && npm install && npm run dev
+cd dashboard && npm ci && npm run dev
 ```
 
 Visit `http://localhost:3000`. The dashboard reads from the API at
